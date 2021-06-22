@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Emoji Match</title>		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"> 		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap"> 	
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<!--
+	
+		ORDER OF PLAY
+		
+		START:
+		X cards, all active # "Begin" button
+		(left side is highlighted)
+		(main player chooses a card on the left)
+		(right side is highlighted)
+		(main player presses "Begin" button)
+		X cards, all active # X emojis in a row, all active
+		TURN:
+		(main player chooses an emoji on the right that is most similar to the target emoji)
+		(right side: non-selected emojis are faded)
+		(left side is highlighted)
+		(other players choose a card to discuss from the left)
+		(select target emoji: game ends. lose. GO TO END)
+		(selected emoji is faded)
+		(one emoji left: game ends. win. GO TO END)
+		(right-side is highlighted)
+		(clues on the right side are archived)
+		(new row of emojis appear on the right side)
+		GO TO TURN
+		END:
+	
+	-->
+	<body>
+		<div id="container">
+			<div id="answers">
+				<div id="card_container">
+					<div class="card" id="card1">💣</div>
+					<div class="card" id="card2">🗺️</div>
+					<div class="card" id="card3">🛢️</div>
+					<div class="card" id="card4">🦝</div>
+					<div class="card" id="card5">🤿</div>
+					<div class="card" id="card6">✈️</div>
+					<div class="card" id="card7">🧭</div>
+					<div class="card" id="card8">🔥</div>
+					<div class="card" id="card9">💿</div>
+					<div class="card" id="card10">🍉</div>
+					<div class="card" id="card11">🦔</div>
+					<div class="card" id="card12">🧶</div>
+				</div>
+			</div>
+			<div id="clues">
+				<div id="guess_containers">
+					<div class="guess_container active" id="guess3">
+						<div class="minicard current" id="minicard3_1">🧮</div>
+						<div class="minicard current" id="minicard3_2">🖨️</div>
+						<div class="minicard current" id="minicard3_3">📼</div>
+						<div class="minicard current" id="minicard3_4">✨</div>
+						<div class="minicard current" id="minicard3_5">🔪</div>				
+					</div>				
+					<div class="guess_container" id="guess2">
+						<div class="minicard" id="minicard2_1">🏺</div>
+						<div class="minicard selected" id="minicard1_2">🍌</div>
+						<div class="minicard" id="minicard2_3">🪀</div>
+						<div class="minicard" id="minicard2_4">🕹️</div>
+						<div class="minicard" id="minicard2_5">💢</div>				
+					</div>
+					<div class="guess_container" id="guess1">
+						<div class="minicard" id="minicard1_1">🐮</div>
+						<div class="minicard" id="minicard1_2">🌽</div>
+						<div class="minicard" id="minicard1_3">🧸</div>
+						<div class="minicard" id="minicard1_4">❤️</div>
+						<div class="minicard selected" id="minicard1_5">🍓</div>				
+					</div>
+					<div class="guess_container" id="guess2">
+						<div class="minicard" id="minicard2_1">🏺</div>
+						<div class="minicard" id="minicard1_2">🍌</div>
+						<div class="minicard selected" id="minicard2_3">🪀</div>
+						<div class="minicard" id="minicard2_4">🕹️</div>
+						<div class="minicard" id="minicard2_5">💢</div>				
+					</div>					
+					<div class="guess_container" id="guess1">
+						<div class="minicard" id="minicard1_1">🐮</div>
+						<div class="minicard selected" id="minicard1_2">🌽</div>
+						<div class="minicard" id="minicard1_3">🧸</div>
+						<div class="minicard" id="minicard1_4">❤️</div>
+						<div class="minicard" id="minicard1_5">🍓</div>				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cls">&nbsp;</div>
+		<script>
+		
+			function random(start, end, exclude=[]) {
+				var answer;
+				do {
+					answer = start + Math.floor(Math.random() * (end - start));
+				} while (exclude.includes(answer));
+				return answer;
+			}
+			
+			d3.selectAll('.card').each(function(d, i) {
+				var css = "rotate([deg]deg) translate([left]px, [top]px)";
+				css = css
+					.replace("[deg]", random(-3, 3))
+					.replace("[left]", random(-3, 3))
+					.replace("[top]", random(-3, 3));
+				d3.select(this).style('transform', css);
+				if (random(1, 10) == 1) {
+					d3.select(this).attr('class', 'card disabled');
+				} else if (random(1, 10) == 1) {
+					d3.select(this).attr('class', 'card error');
+				}	
+			});
+			
+			d3.selectAll('.minicard').each(function(d, i) {
+				var css = "rotate([deg]deg) translate([left]px, [top]px)";
+				css = css
+					.replace("[deg]", random(-3, 3))
+					.replace("[left]", random(-3, 3))
+					.replace("[top]", random(-3, 3));
+				d3.select(this).style('transform', css);
+			});			
+			
+		</script>
+	</body>
+</html>
