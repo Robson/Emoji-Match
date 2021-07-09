@@ -56,7 +56,7 @@ function startGame() { // state 0
 	createPotentialGuessCards();
 	d3.select('#help').html("<em>Guessers </em> look away, while <em>Player 1</em> selects a target emoji")
 	d3.selectAll('.guess_container').remove();
-	d3.select('#different_targets').style('display', 'inline-block');
+	d3.select('#different_targets').style('display', 'block');
 	d3.select('#restart').style('display', 'none');
 }
 

@@ -173,6 +173,9 @@ table {
 .mini_button:hover {
 	color: #f90;
 }
+#restart {
+	clear: both;
+}
 
 /***** CARDS *****/
 
