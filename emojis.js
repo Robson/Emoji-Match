@@ -2,20 +2,20 @@
 
 var categories = [
 	'Object',
+	'Travel',
+	'Emotion',
+	'Clothes',
+	'Flag',	
 	'Food & Drink',
 	'Food',
-	'Drink',	
+	'Drink',
 	'Fruit',
-	'Vegetable',
 	'Bread',
 	'Meat',
-	'Flag',
-	'Travel',
+	'Vegetable',
 	'Animal & Nature',
 	'Animal',
-	'Nature',
-	'Emotion',
-	'Clothes'
+	'Nature'
 ]
 
 var emojis = [
