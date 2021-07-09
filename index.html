@@ -6,13 +6,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="emojis.js"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"> 		
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap"> 	
 		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-		<table>
+		<table id="game">
 			<tr>
 				<td id="help" colspan="2">Lorem ipsum dolar amet.</td>
 			</tr>
@@ -23,22 +24,87 @@
 					<div id="different_targets">
 						<div class="mini_button" onmousedown="newTargetEmojiSet()">
 							Make a different set of emojis
-						</div>
+						</div>						
 						<!--<div class="mini_button" onmousedown="showAllEmojis()">
 							Debug!
 						</div>-->
 					</div>
+					<div id="restart" class="mini_button" style="display: none" onmousedown="startGame()">New Game</div>
 				</td>
 				<td id="clues">				
 					<div id="guess_containers">
-						<div id="start" class="button" style="display: none" onmousedown="clickStart()">Start!</div>
+						<div id="next" class="button" style="display: none" onmousedown="clickCommitTargetEmoji()">Next</div>
+						<div id="start" class="button" style="display: none" onmousedown="clickStartGame()">Start</div>						
 						<div id="guess_containers_current"></div>
 						<div id="guess_containers_history"></div>
 					</div>
 				</td>
 			</tr>
 		</table>
-		<script src="emojis.js"></script>
+		<div id="cover">
+			<div id="options">
+				<table>
+					<tr>
+						<td colspan="2">
+							<p>
+								Target Emojis
+								<br/>
+								<select id="target_emoji_count">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</p>	
+							<p>
+								Clue Emojis
+								<br/>
+								<select id="clue_emoji_count">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</p>							
+							<p>
+								Emoji Category
+								<br/>
+								<select id="category" onchange="showCategoryPreview()">
+								</select>
+								<br/>
+								<div id="category_preview"></div>
+							</p>
+						</dt>
+					</tr>
+					<tr>
+						<td class="left">
+							<div id="cancel" class="mini_button" onmousedown="optionsCancel()">Cancel</div>
+						</td>
+						<td class="right">
+							<div id="apply" class="mini_button" onmousedown="optionsApply()">Apply & Restart</div>
+						</td>
+					</tr>					
+				</table>
+			</div>
+		</div>
+		<div id="cog" onmousedown="showOptions()">
+			⚙️
+		</div>		
 		<script src="page.js"></script>
+		<script>									
+			var list = d3.select('select#category');										
+			for (var category of categories) {
+				list
+					.append('option')
+					.attr('value', category)
+					.html(category);
+			}										
+		</script>		
 	</body>
 </html>
