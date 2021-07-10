@@ -29,7 +29,9 @@
 							Debug!
 						</div>-->
 					</div>
-					<div id="restart" class="mini_button" style="display: none" onmousedown="startGame()">New Game</div>
+					<div id="restart" style="display:none">
+						<div class="mini_button" onmousedown="startGame()">New Game</div>
+					</div>
 				</td>
 				<td id="clues">				
 					<div id="guess_containers">
@@ -49,7 +51,7 @@
 							<p>
 								Target Emojis
 								<br/>
-								<select id="target_emoji_count">
+								<select id="target_emoji_count" onchange="updateCategoryList()">
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
@@ -62,7 +64,7 @@
 							<p>
 								Clue Emojis
 								<br/>
-								<select id="clue_emoji_count">
+								<select id="clue_emoji_count" onchange="updateCategoryList()">
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
@@ -96,15 +98,6 @@
 		<div id="cog" onmousedown="showOptions()">
 			⚙️
 		</div>		
-		<script src="page.js"></script>
-		<script>									
-			var list = d3.select('select#category');										
-			for (var category of categories) {
-				list
-					.append('option')
-					.attr('value', category)
-					.html(category);
-			}										
-		</script>		
+		<script src="page.js"></script>	
 	</body>
 </html>

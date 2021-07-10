@@ -32,7 +32,7 @@ var potentialAnswerCount = 6;
 var clueEmojiCount = 5;
 var answer = -1;
 var guessed = 0;
-var selectedCategory = 'Nature';
+var selectedCategory = 'Object';
 
 function selectLeftSide() {	
 	d3.select('#answers').style('background', '#fdb');	
@@ -137,14 +137,14 @@ function clickedGuess(element) {
 				d3.selectAll('.card')
 					.style('cursor', 'not-allowed');
 				d3.select('#help').html("Whoops! Accidentally clicked the target emoji! Game over");
-				d3.select('#restart').style('display', 'inline-block');
+				d3.select('#restart').style('display', 'block');
 			} else {
 				guessed++;
 				chosen.attr('class', 'card disabled');
 				if (guessed + 1 == emojisChosen.length) {
 					d3.select('#help').html("Congratulations! The target emoji has been found!");
 					d3.select('#card' + answer).attr('class', 'card selected_answer');
-					d3.select('#restart').style('display', 'inline-block');
+					d3.select('#restart').style('display', 'block');
 				} else {
 					clickStartGame();
 				}
@@ -218,18 +218,42 @@ function guessEmoji() {
 
 /***** OPTIONS ******/
 
-function showOptions() {
-	d3.select('#category').property('value', selectedCategory);
+function showOptions() {	
 	d3.select('#target_emoji_count').property('value', potentialAnswerCount);
 	d3.select('#clue_emoji_count').property('value', clueEmojiCount);
-	showCategoryPreview();	
+	updateCategoryList();
 	d3.select('#game').style('opacity', 0.5);
 	d3.select('#cog').style('opacity', 0.5);
 	d3.select('#game').style('filter', 'grayscale(100)');
 	d3.select('#cog').style('filter', 'grayscale(100)');	
 	d3.select('#cover').style('display', 'block');
 	d3.select('#options').style('display', 'block');	
-	d3.select('#cog').style('display', 'none');
+	d3.select('#cog').style('display', 'none');	
+}
+
+function updateCategoryList() {
+	var oldCategory = document.getElementById('category').value;
+	var requiredEmojis = +document.getElementById('target_emoji_count').value + ((+document.getElementById('target_emoji_count').value - 1) * +document.getElementById('clue_emoji_count').value);
+	var list = d3.select('select#category');										
+	list.selectAll('*').remove();
+	var categoryValue = '';
+	for (var category of categories) {
+		var amount = getCategoryEmojisOnly(category).length;
+		if (amount >= requiredEmojis) {
+			if (!categoryValue) {
+				categoryValue = category;	
+			}
+			if (oldCategory == category) {
+				categoryValue = category;
+			}
+			list
+				.append('option')
+				.attr('value', category)
+				.html(category);
+		}
+	}
+	d3.select('#category').property('value', categoryValue);
+	showCategoryPreview();
 }
 
 function showCategoryPreview() {

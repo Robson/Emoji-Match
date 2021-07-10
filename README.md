@@ -1,2 +1,2 @@
 # Emoji Match
- A web-based multiplayer game. Very early in development and completely unplayable!
+ A web-based multiplayer game. Early in development, but completely playable.
