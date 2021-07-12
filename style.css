@@ -1,18 +1,70 @@
 /***** PAGE *****/
 
-html {
-	color: #333;	
-	text-align: center;
-	background: #fff;
-	height: 100%;
-	overflow: auto;
-}
-
+html,
 body {
+	color: #333;
+	text-align: center;	
+	background: #fff;
 	margin: 0;
 	padding: 0;
 	font-family: rubik, sans-serif;
 	height: 100%;
+	overflow: hidden;
+}
+
+* {
+	user-select: none;
+}
+
+/***** LAYOUT *****/
+
+#container {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+#header {
+	font-size: 28px;
+	height: 70px;
+	min-height: 70px;
+	border: 2px solid #000;
+	background: #000;	
+	display: flex;
+}
+
+#help {
+	margin: auto;
+	
+}
+
+#content {
+	display: flex;
+	flex-grow: 2;
+	overflow: hidden;
+	align-self: stretch;
+}
+
+#answers {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+
+#clues {
+	width: 50%;
+	overflow: hidden;
+	text-align: left;
+}
+
+#clues_container {
+	text-align: left;
+	display: inline-block;
+	position: relative;
+	transform-origin: top left;
 }
 
 /***** OPTIONS *****/
@@ -59,6 +111,10 @@ body {
 	cursor: default;
 }
 
+#options table {
+	width: 100%;
+}
+
 #options td {
 	padding: 10px;
 }
@@ -91,54 +147,32 @@ table, td, tr {
 	border-collapse: separate;
 }
 
-table {
-	width: 100%;
-	height: 100%;
-}
-
 /***** HEADER *****/
 
-#help {
-	font-size: 2em;
-	padding: 0.2em;	
-	height: 2em;
-	background: #000;
+#help {	
 	color: #fff;
+	padding: 0 2px;
+	margin: auto;
 }
 
-/***** CONTAINERS *****/
-
-#answers {
-	width: 50%;
-	background: #fff;
-	border-right: 0 solid black;
-	text-align: center;
-	vertical-align: middle;	
-}
+/***** CONTENTS *****/
 
 #card_container {
 	display: inline-block;
 }
 
-#clues {
-	width: 50%;
-	background: #fff;
-	border-left: 0 solid #000;
-}
-
-#guess_containers {
+#clues_container {
 	padding: 0;
 }
 
 .guess_container {
 	margin: 0 0 6px 0;
-	padding-top: 6px;
-	border-top: 0px solid #fc9;
+	padding: 3px;
+	white-space: pre;
 }
 
 .guess_container.active {
 	padding-top: 0;
-	border-top: 0 !important;
 }
 
 /***** BUTTONS *****/
@@ -152,6 +186,7 @@ table {
 	font-size: 50px;
 	box-shadow: 5px 5px 0 0 rgb(128, 128, 128);
 	cursor: pointer;
+	z-index: -10000;
 }
 
 .button:hover {
@@ -168,6 +203,7 @@ table {
 	font-size: 20px;
 	box-shadow: 5px 5px 0 0 rgb(128, 128, 128);
 	cursor: pointer;
+	z-index: -10000;
 }
 
 .mini_button:hover {
@@ -191,6 +227,7 @@ table {
 	display: inline-block;
 	box-shadow: 3px 3px 0 0 rgb(50, 50, 50, 0.5);
 	text-align: center;
+	transform: scale(2);
 }
 
 .selecting_target:hover {
@@ -215,7 +252,7 @@ table {
 }
 
 .minicard {
-	margin: 8px 3px;
+	margin: 4px 3px;
 	font-size: 45px;
 	width: 62px;
 	padding: 8px;

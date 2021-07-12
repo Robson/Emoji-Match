@@ -13,18 +13,20 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-		<table id="game">
-			<tr>
-				<td id="help" colspan="2">Lorem ipsum dolar amet.</td>
-			</tr>
-			<tr>
-				<td id="answers">
+		<div id="container">
+			<div id="header">
+				<div id="help">
+					Lorem ipsum dolar amet.
+				</div>
+			</div>
+			<div id="content">
+				<div id="answers">
 					<div id="card_container">
 					</div>
 					<div id="different_targets">
 						<div class="mini_button" onmousedown="newTargetEmojiSet()">
 							Make a different set of emojis
-						</div>						
+						</div>
 						<!--<div class="mini_button" onmousedown="showAllEmojis()">
 							Debug!
 						</div>-->
@@ -32,17 +34,15 @@
 					<div id="restart" style="display:none">
 						<div class="mini_button" onmousedown="startGame()">New Game</div>
 					</div>
-				</td>
-				<td id="clues">				
-					<div id="guess_containers">
+				</div>
+				<div id="clues">
+					<div id="clues_container">
 						<div id="next" class="button" style="display: none" onmousedown="clickCommitTargetEmoji()">Next</div>
-						<div id="start" class="button" style="display: none" onmousedown="clickStartGame()">Start</div>						
-						<div id="guess_containers_current"></div>
-						<div id="guess_containers_history"></div>
+						<div id="start" class="button" style="display: none" onmousedown="clickStartGame()">Start</div>
 					</div>
-				</td>
-			</tr>
-		</table>
+				</div>			
+			</div>
+		</div>		
 		<div id="cover">
 			<div id="options">
 				<table>
@@ -58,7 +58,9 @@
 									<option value="5">5</option>
 									<option value="6">6</option>
 									<option value="7">7</option>
-									<option value="8">8</option>
+									<option value="8">8</option>									
+									<option value="9">9</option>
+									<option value="10">10</option>
 								</select>
 							</p>	
 							<p>
@@ -72,6 +74,8 @@
 									<option value="6">6</option>
 									<option value="7">7</option>
 									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
 								</select>
 							</p>							
 							<p>

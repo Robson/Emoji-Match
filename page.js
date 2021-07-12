@@ -37,13 +37,11 @@ var selectedCategory = 'Object';
 function selectLeftSide() {	
 	d3.select('#answers').style('background', '#fdb');	
 	d3.select('#clues').style('background', '#fff');
-	d3.selectAll('.guess_container').style('border-brush', '#ddd');
 }
 
 function selectRightSide() {	
 	d3.select('#answers').style('background', '#fff');	
 	d3.select('#clues').style('background', '#fdb');
-	d3.selectAll('.guess_container').style('border-brush', '#fc9');
 }
 
 function startGame() { // state 0
@@ -58,6 +56,7 @@ function startGame() { // state 0
 	d3.selectAll('.guess_container').remove();
 	d3.select('#different_targets').style('display', 'block');
 	d3.select('#restart').style('display', 'none');
+	doResize();
 }
 
 function getCategoryEmojisOnly(cat) {
@@ -70,10 +69,11 @@ function newTargetEmojiSet() {
 	emojisChosen = emojisRandom.slice(0, potentialAnswerCount);
 	emojisClues = emojisRandom.slice(potentialAnswerCount);
 	createPotentialGuessCards();
+	return false;
 }
 
 function showAllEmojis() {
-	var gc = d3.select('#guess_containers').append('div');
+	var gc = d3.select('#clues_container').append('div');
 	gc.lower();
 	d3.selectAll('.active').classed('active', false);
 	gc.attr('class', 'guess_container active');
@@ -88,11 +88,18 @@ function showAllEmojis() {
 			.style('transform', css)
 			.on('mousedown', function() { clickedClueEmoji(this) })
 			.html(emojisClues[i]);
-	}	
+		if (i > 0 && (i+1) % 8 == 0) {
+			gc.append('br');
+		}
+	}
+	doResize();
 }
 
 function createPotentialGuessCards() {
 	d3.selectAll('#card_container *').remove();
+	var perRow = Math.floor(Math.sqrt(emojisChosen.length));
+	var perCol = emojisChosen.length / perRow;
+	console.log(perRow);
 	for (var i = 0; i < emojisChosen.length; i++) {
 		var css = "rotate([deg]deg) translate([left]px, [top]px)"
 			.replace("[deg]", random(-4, 4))
@@ -107,7 +114,20 @@ function createPotentialGuessCards() {
 			.style('cursor', 'pointer')
 			.on('mousedown', function() { clickedGuess(this) })
 			.text(emojisChosen[i]);
+		if (emojisChosen.length == 6 && i == 2) {
+			d3
+			.select('#card_container')
+			.append('br');
+		}
 	}
+}
+
+function getRandomCelebrationEmoji() {
+	return shuffle([ '🏆', '🏅', '🏵️', '✨', '✔️', '🌟', '🤩', '⭐' ])[0];	
+}
+
+function getRandomFailEmoji() {
+	return shuffle([ '💥', '❌', '😢', '😭', '😿', '💔', '🤦' ])[0];	
 }
 
 function clickedGuess(element) {
@@ -126,6 +146,7 @@ function clickedGuess(element) {
 			d3.select('#help').html('<em>Player 1</em>: remember your emoji and click Next');
 			d3.select('#different_targets').style('display', 'none');
 			state = 1;
+			doResize();
 			break;
 		case 4:
 			d3.selectAll('.card')
@@ -136,19 +157,20 @@ function clickedGuess(element) {
 				chosen.attr('class', 'card error');
 				d3.selectAll('.card')
 					.style('cursor', 'not-allowed');
-				d3.select('#help').html("Whoops! Accidentally clicked the target emoji! Game over");
+				d3.select('#help').html("Whoops! " + getRandomFailEmoji() + " Accidentally clicked the target emoji! Game over");
 				d3.select('#restart').style('display', 'block');
 			} else {
 				guessed++;
 				chosen.attr('class', 'card disabled');
 				if (guessed + 1 == emojisChosen.length) {
-					d3.select('#help').html("Congratulations! The target emoji has been found!");
+					d3.select('#help').html("Congratulations! " + getRandomCelebrationEmoji() + " The target emoji has been found!");
 					d3.select('#card' + answer).attr('class', 'card selected_answer');
 					d3.select('#restart').style('display', 'block');
 				} else {
 					clickStartGame();
 				}
 			}
+			doResize();
 			break;
 	}
 }
@@ -159,17 +181,19 @@ function clickCommitTargetEmoji() {
 	d3.select('.selected_answer').attr('class', 'card');
 	d3.select('#help').html("<em>Player 1</em>: tell the <em>Guessers</em> that they can look, then press Start");	
 	state = 2;
+	doResize();
 }
 
 function clickStartGame() {
 	d3.select('#start').style('display', 'none');
-	d3.select('#help').html("<em>Player 1</em>: select an emoji on the right, which is most similar to your target emoji");
+	d3.select('#help').html("<em>Player 1</em>: select the emoji on the right that is most similar to your target emoji");
 	makeGuessEmojis();
 	state = 3;
+	doResize();
 }
 
 function makeGuessEmojis() {
-	var gc = d3.select('#guess_containers').append('div');
+	var gc = d3.select('#clues_container').append('div');
 	gc.lower();
 	d3.selectAll('.active').classed('active', false);
 	gc.attr('class', 'guess_container active');
@@ -187,6 +211,7 @@ function makeGuessEmojis() {
 			.html(emojisClues[0]);
 		emojisClues = emojisClues.slice(1);
 	}
+	doResize();
 }
 
 function clickedClueEmoji(element) {
@@ -200,6 +225,7 @@ function clickedClueEmoji(element) {
 	selectLeftSide();
 	state = 4;	
 	guessEmoji();
+	doResize();
 }
 
 function guessEmoji() {
@@ -216,15 +242,46 @@ function guessEmoji() {
 		.classed('selecting_remove', false);
 }
 
+/***** CLUE CONTAINER RESIZING *****/
+
+function doResize() {
+	
+	var documentHeight = d3.select('body').node().getBoundingClientRect().height;
+	var cluesHeight = documentHeight - d3.select('#header').node().getBoundingClientRect().height;
+	var outside = d3.select("#clues");
+	var inside = d3.select("#clues_container");
+	
+	inside.style('transform', 'scale(1)');
+	
+	var outsideWidth = outside.node().getBoundingClientRect().width;	
+	var outsideHeight = outside.node().getBoundingClientRect().height;
+	var insideWidth = inside.node().getBoundingClientRect().width;	
+	var insideHeight = inside.node().getBoundingClientRect().height;
+		
+	var scale = Math.min(
+		1,
+		outsideWidth / insideWidth,
+		cluesHeight / insideHeight
+	);
+	
+	inside
+		.style('left', (outsideWidth / 2) - ((insideWidth / 2) * scale) + 'px')
+		.style('top', (outsideHeight / 2) - ((insideHeight / 2) * scale) + 'px')
+		.style('transform', 'scale('+scale+')');
+}
+
+doResize();
+window.addEventListener("resize", doResize);
+
 /***** OPTIONS ******/
 
 function showOptions() {	
 	d3.select('#target_emoji_count').property('value', potentialAnswerCount);
 	d3.select('#clue_emoji_count').property('value', clueEmojiCount);
 	updateCategoryList();
-	d3.select('#game').style('opacity', 0.5);
+	d3.select('#container').style('opacity', 0.5);
 	d3.select('#cog').style('opacity', 0.5);
-	d3.select('#game').style('filter', 'grayscale(100)');
+	d3.select('#container').style('filter', 'grayscale(100)');
 	d3.select('#cog').style('filter', 'grayscale(100)');	
 	d3.select('#cover').style('display', 'block');
 	d3.select('#options').style('display', 'block');	
@@ -266,9 +323,9 @@ function showCategoryPreview() {
 }
 
 function optionsCancel() {
-	d3.select('#game').style('opacity', 1);
+	d3.select('#container').style('opacity', 1);
 	d3.select('#cog').style('opacity', 1);
-	d3.select('#game').style('filter', 'none');
+	d3.select('#container').style('filter', 'none');
 	d3.select('#cog').style('filter', 'none');	
 	d3.select('#cover').style('display', 'none');
 	d3.select('#options').style('display', 'none');	
@@ -276,9 +333,9 @@ function optionsCancel() {
 }
 
 function optionsApply() {
-	d3.select('#game').style('opacity', 1);
+	d3.select('#container').style('opacity', 1);
 	d3.select('#cog').style('opacity', 1);
-	d3.select('#game').style('filter', 'none');
+	d3.select('#container').style('filter', 'none');
 	d3.select('#cog').style('filter', 'none');	
 	d3.select('#cover').style('display', 'none');
 	d3.select('#options').style('display', 'none');	
