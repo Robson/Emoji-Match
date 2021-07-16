@@ -1,5 +1,3 @@
-// f=food
-
 var categories = [
 	'Object',
 	'Travel',
@@ -875,7 +873,7 @@ var emojis = [
 [ '😈', [ 'Emotion' ], "Smiling Face with Horns" ],
 [ '👿', [ 'Emotion' ], "Angry Face with Horns" ],
 [ '🧳', [ 'Object', 'Clothes' ], "Luggage" ],
-[ '🎃', [ 'Object', 'Clothes' ], "Jack-O-Lantern" ],
+[ '🎃', [ 'Object' ], "Jack-O-Lantern" ],
 [ '🧵', [ 'Object', 'Clothes' ], "Thread" ],
 [ '🧶', [ 'Object', 'Clothes' ], "Yarn" ],
 [ '👓', [ 'Object', 'Clothes' ], "Glasses" ],
