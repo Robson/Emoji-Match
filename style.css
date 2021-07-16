@@ -136,6 +136,10 @@ body {
 	display: none;
 }
 
+#cancelAbout {
+	margin-top: 15px;
+}
+
 /***** OPTIONS *****/
 
 #cog {
