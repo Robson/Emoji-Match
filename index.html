@@ -21,18 +21,20 @@
 			</div>
 			<div id="content">
 				<div id="answers">
-					<div id="card_container">
-					</div>
-					<div id="different_targets">
-						<div class="mini_button" onmousedown="newTargetEmojiSet()">
-							Make a different set of emojis
+					<div id="answers_container">
+						<div id="card_container">
 						</div>
-						<!--<div class="mini_button" onmousedown="showAllEmojis()">
-							Debug!
-						</div>-->
-					</div>
-					<div id="restart" style="display:none">
-						<div class="mini_button" onmousedown="startGame()">New Game</div>
+						<div id="different_targets">
+							<div class="mini_button" onmousedown="newTargetEmojiSet()">
+								New Set
+							</div>
+							<!--<div class="mini_button" onmousedown="showAllEmojis()">
+								Debug!
+							</div>-->
+						</div>
+						<div id="restart" style="display:none">
+							<div class="mini_button" onmousedown="startGame()">New Game</div>
+						</div>
 					</div>
 				</div>
 				<div id="clues">
@@ -44,7 +46,17 @@
 			</div>
 		</div>		
 		<div id="cover">
+			<div id="background">
+			</div>
+			<div id="about">
+				<h1>Emoji Match</h1>
+				<p>This is a game for 2+&nbsp;players,<br/>where one person secretly chooses an emoji, then everyone else works together to figure out what it is.</p>
+				<p id="startAbout">Start by choosing one person to be <em>Player&nbsp;1</em>. Everyone else is a <em>Guesser</em>.</p>
+				<p><div id="cancelAbout" class="mini_button" onmousedown="hideAbout()">Let's Play!</div></p>
+				<p id="extraAbout">Created by <a target="_blank" href="https://robson.plus">Robson</a>. View the <a target="_blank" href="https://github.com/Robson/Emoji-Match">code</a>.</p>	
+			</div>
 			<div id="options">
+				<h1>Options</h1>
 				<table>
 					<tr>
 						<td colspan="2">
@@ -99,7 +111,10 @@
 				</table>
 			</div>
 		</div>
-		<div id="cog" onmousedown="showOptions()">
+		<div id="i" onmousedown="showAbout()" title="About">
+			ℹ️
+		</div>
+		<div id="cog" onmousedown="showOptions()" title="Options">
 			⚙️
 		</div>		
 		<script src="page.js"></script>	

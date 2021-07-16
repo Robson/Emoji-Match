@@ -33,6 +33,7 @@ var clueEmojiCount = 5;
 var answer = -1;
 var guessed = 0;
 var selectedCategory = 'Object';
+var isOnFirstScreen = true;
 
 function selectLeftSide() {	
 	d3.select('#answers').style('background', '#fdb');	
@@ -52,7 +53,7 @@ function startGame() { // state 0
 	emojisChosen = emojisRandom.slice(0, potentialAnswerCount);
 	emojisClues = emojisRandom.slice(potentialAnswerCount);
 	createPotentialGuessCards();
-	d3.select('#help').html("<em>Guessers </em> look away, while <em>Player 1</em> selects a target emoji")
+	d3.select('#help').html("<em>Guessers </em> look away, while <em>Player 1</em> clicks a target emoji")
 	d3.selectAll('.guess_container').remove();
 	d3.select('#different_targets').style('display', 'block');
 	d3.select('#restart').style('display', 'none');
@@ -61,6 +62,11 @@ function startGame() { // state 0
 
 function getCategoryEmojisOnly(cat) {
 	var arr = [...new Set(emojis.filter(x => x[1].includes(cat)).map(x => x[0]))];
+	return shuffle(arr);
+}
+
+function getAllEmojisExceptFlags() {
+	var arr = [...new Set(emojis.filter(x => !x[1].includes('Flag')).map(x => x[0]))];
 	return shuffle(arr);
 }
 
@@ -86,7 +92,6 @@ function showAllEmojis() {
 			.append('div')
 			.attr('class', 'minicard current')
 			.style('transform', css)
-			.on('mousedown', function() { clickedClueEmoji(this) })
 			.html(emojisClues[i]);
 		if (i > 0 && (i+1) % 8 == 0) {
 			gc.append('br');
@@ -97,9 +102,7 @@ function showAllEmojis() {
 
 function createPotentialGuessCards() {
 	d3.selectAll('#card_container *').remove();
-	var perRow = Math.floor(Math.sqrt(emojisChosen.length));
-	var perCol = emojisChosen.length / perRow;
-	console.log(perRow);
+	var perRow = Math.floor(emojisChosen.length/5)+2;	
 	for (var i = 0; i < emojisChosen.length; i++) {
 		var css = "rotate([deg]deg) translate([left]px, [top]px)"
 			.replace("[deg]", random(-4, 4))
@@ -114,12 +117,13 @@ function createPotentialGuessCards() {
 			.style('cursor', 'pointer')
 			.on('mousedown', function() { clickedGuess(this) })
 			.text(emojisChosen[i]);
-		if (emojisChosen.length == 6 && i == 2) {
+		if (i > 0 && (i + 1) % perRow == 0) {
 			d3
-			.select('#card_container')
-			.append('br');
+				.select('#card_container')
+				.append('br');
 		}
 	}
+	doResize();
 }
 
 function getRandomCelebrationEmoji() {
@@ -186,7 +190,7 @@ function clickCommitTargetEmoji() {
 
 function clickStartGame() {
 	d3.select('#start').style('display', 'none');
-	d3.select('#help').html("<em>Player 1</em>: select the emoji on the right that is most similar to your target emoji");
+	d3.select('#help').html("<em>Player 1</em>: click the emoji on the right that is most similar to your target emoji");
 	makeGuessEmojis();
 	state = 3;
 	doResize();
@@ -223,13 +227,8 @@ function clickedClueEmoji(element) {
 	d3.selectAll('.minicard')
 		.on('mousedown', null);			
 	selectLeftSide();
-	state = 4;	
-	guessEmoji();
-	doResize();
-}
-
-function guessEmoji() {
-	d3.select('#help').html("<em>Guessers</em>: select an emoji on the left that you don't think is the target emoji");
+	state = 4;
+	d3.select('#help').html("<em>Guessers</em>: click an emoji on the left that you don't think is the target emoji");
 	d3
 		.selectAll('.card')
 		.style('cursor', 'pointer')
@@ -240,52 +239,89 @@ function guessEmoji() {
 		.style('cursor', 'not-allowed')
 		.on('mousedown', null)		
 		.classed('selecting_remove', false);
+	doResize();		
 }
 
-/***** CLUE CONTAINER RESIZING *****/
+/***** CONTAINER RESIZING *****/
 
-function doResize() {
+function resizeElementToFitContainer(outside, inside) {
 	
 	var documentHeight = d3.select('body').node().getBoundingClientRect().height;
-	var cluesHeight = documentHeight - d3.select('#header').node().getBoundingClientRect().height;
-	var outside = d3.select("#clues");
-	var inside = d3.select("#clues_container");
-	
+	var contentHeight = documentHeight - d3.select('#header').node().getBoundingClientRect().height;
 	inside.style('transform', 'scale(1)');
 	
-	var outsideWidth = outside.node().getBoundingClientRect().width;	
-	var outsideHeight = outside.node().getBoundingClientRect().height;
-	var insideWidth = inside.node().getBoundingClientRect().width;	
-	var insideHeight = inside.node().getBoundingClientRect().height;
+	var outsideSize = outside.node().getBoundingClientRect();
+	var insideSize = inside.node().getBoundingClientRect();
 		
 	var scale = Math.min(
 		1,
-		outsideWidth / insideWidth,
-		cluesHeight / insideHeight
+		outsideSize.width / insideSize.width,
+		contentHeight / insideSize.height
 	);
 	
 	inside
-		.style('left', (outsideWidth / 2) - ((insideWidth / 2) * scale) + 'px')
-		.style('top', (outsideHeight / 2) - ((insideHeight / 2) * scale) + 'px')
+		.style('left', (outsideSize.width / 2) - ((insideSize.width / 2) * scale) + 'px')
+		.style('top', (outsideSize.height / 2) - ((insideSize.height / 2) * scale) + 'px')
 		.style('transform', 'scale('+scale+')');
+		
+}
+
+function doResize() {	
+	resizeElementToFitContainer(d3.select("#answers"), d3.select("#answers_container"));
+	resizeElementToFitContainer(d3.select("#clues"), d3.select("#clues_container"));	
+	if (isOnFirstScreen) {
+		createBackground();
+	}	
 }
 
 doResize();
 window.addEventListener("resize", doResize);
 
+/***** ABOUT *****/
+
+function showAbout(isFirst=false) {	
+	if (isFirst) {
+		createBackground();
+	} else {
+		d3.selectAll('#background *').remove();
+	}
+	d3.select('#container').style('opacity', isFirst ? 0 : 0.25);
+	d3.select('#container').style('filter', 'grayscale(100)');
+	d3.select('#cog').style('display', 'none');	
+	d3.select('#i').style('display', 'none');	
+	d3.select('#cover').style('display', 'block');
+	d3.select('#about').style('display', 'block');
+	d3.select('#options').style('display', 'none');
+}
+
+function hideAbout() {
+	d3.select('#container').style('opacity', 1);
+	d3.select('#container').style('filter', 'none');
+	d3.select('#cog').style('display', 'block');
+	d3.select('#i').style('display', 'block');	
+	d3.select('#cover').style('display', 'none');
+	d3.select('#options').style('display', 'none');
+	d3.selectAll('#background *').remove();
+	d3.select('#cancelAbout').html('Continue Playing');
+	d3.select('#extraAbout').style('display', 'block');
+	d3.select('#startAbout').style('display', 'none');
+	isOnFirstScreen = false;
+}
+
 /***** OPTIONS ******/
 
 function showOptions() {	
+	d3.selectAll('#background *').remove();
 	d3.select('#target_emoji_count').property('value', potentialAnswerCount);
 	d3.select('#clue_emoji_count').property('value', clueEmojiCount);
 	updateCategoryList();
-	d3.select('#container').style('opacity', 0.5);
-	d3.select('#cog').style('opacity', 0.5);
+	d3.select('#container').style('opacity', 0.25);
 	d3.select('#container').style('filter', 'grayscale(100)');
-	d3.select('#cog').style('filter', 'grayscale(100)');	
-	d3.select('#cover').style('display', 'block');
-	d3.select('#options').style('display', 'block');	
 	d3.select('#cog').style('display', 'none');	
+	d3.select('#i').style('display', 'none');	
+	d3.select('#cover').style('display', 'block');
+	d3.select('#options').style('display', 'block');
+	d3.select('#about').style('display', 'none');
 }
 
 function updateCategoryList() {
@@ -324,26 +360,67 @@ function showCategoryPreview() {
 
 function optionsCancel() {
 	d3.select('#container').style('opacity', 1);
-	d3.select('#cog').style('opacity', 1);
 	d3.select('#container').style('filter', 'none');
-	d3.select('#cog').style('filter', 'none');	
+	d3.select('#cog').style('display', 'block');
+	d3.select('#i').style('display', 'block');
 	d3.select('#cover').style('display', 'none');
-	d3.select('#options').style('display', 'none');	
-	d3.select('#cog').style('display', 'block');	
+	d3.select('#options').style('display', 'none');
 }
 
 function optionsApply() {
 	d3.select('#container').style('opacity', 1);
-	d3.select('#cog').style('opacity', 1);
 	d3.select('#container').style('filter', 'none');
-	d3.select('#cog').style('filter', 'none');	
-	d3.select('#cover').style('display', 'none');
-	d3.select('#options').style('display', 'none');	
 	d3.select('#cog').style('display', 'block');
+	d3.select('#i').style('display', 'block');
+	d3.select('#cover').style('display', 'none');
+	d3.select('#options').style('display', 'none');
 	selectedCategory = document.getElementById('category').value;
 	potentialAnswerCount = document.getElementById('target_emoji_count').value;
 	clueEmojiCount = document.getElementById('clue_emoji_count').value;
 	startGame();
+}
+
+/***** BACKGROUND *****/
+
+function createBackground() {
+	d3.selectAll('#background *').remove();
+	var bg = d3.select('#background');
+	var backgroundEmojis = getAllEmojisExceptFlags();
+	var size = d3.select('body').node().getBoundingClientRect();
+	var pattern = random(0, 4);
+	var count = 0, offset = 0, addition = 0, append = 0;
+	switch (random(0, 2)) {
+		case 0: // every second square
+			offset = 2;
+			addition = 1;
+			append = random(0, 2);
+			break;
+		case 1: // diagonal
+			offset = 3;
+			addition = random(1, 3);
+			append = random(0, 3);
+			break;
+	}
+	
+	for (var y = 0; y < size.height; y+= 50) {
+		count = ~~(y / 50) + append;
+		for (var x = 0; x < size.width; x+= 50) {
+			count += addition;
+			count %= offset;
+			if (count == 0) {
+				bg
+					.append('div')
+					.style('position', 'absolute')
+					.style('width', '50px')
+					.style('height', '50px')
+					.style('left', x + 'px')
+					.style('top', y + 'px')					
+					.style('font-size', '32px')
+					.style('opacity', '0.25')
+					.html(backgroundEmojis[random(0, backgroundEmojis.length)]);
+			}
+		}
+	}
 }
 
 /***** GENERIC ******/
@@ -356,20 +433,17 @@ function random(start, end, exclude=[]) {
 	return answer;
 }
 
-/*
-this function is from
-https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-*/
-function shuffle(array) {
-  var currentIndex = array.length,  randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
+function shuffle(items) {
+  var indexCurrent = items.length, indexRandom;
+  while (indexCurrent > 0) {
+    indexRandom = Math.floor(indexCurrent * Math.random());
+    indexCurrent--;
+    [items[indexCurrent], items[indexRandom]] = [items[indexRandom], items[indexCurrent]];
   }
 
-  return array;
+  return items;
 }
 
 startGame();
+createBackground();
+showAbout(isFirst=true);
