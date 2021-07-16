@@ -798,7 +798,7 @@ var emojis = [
 [ '🤩', [ 'Emotion' ], "Star-Struck" ],
 [ '😘', [ 'Emotion' ], "Face Blowing a Kiss" ],
 [ '😗', [ 'Emotion' ], "Kissing Face" ],
-[ '☺️', [ 'Emotion' ], "Smiling Face" ],
+//[ '☺️', [ 'Emotion' ], "Smiling Face" ],
 [ '😚', [ 'Emotion' ], "Kissing Face with Closed Eyes" ],
 [ '😙', [ 'Emotion' ], "Kissing Face with Smiling Eyes" ],
 [ '😋', [ 'Emotion' ], "Face Savoring Food" ],

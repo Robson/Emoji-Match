@@ -83,7 +83,9 @@ function showAllEmojis() {
 	gc.lower();
 	d3.selectAll('.active').classed('active', false);
 	gc.attr('class', 'guess_container active');
-	for (var i = 0; i < emojisClues.length; i++) {
+	var allEmojis = getAllEmojisExceptFlags();
+	var perRow = Math.floor(Math.sqrt(allEmojis.length));	
+	for (var i = 0; i < allEmojis.length; i++) {
 		var css = "rotate([deg]deg) translate([left]px, [top]px)"
 			.replace("[deg]", random(-4, 4))
 			.replace("[left]", random(-3, 3))
@@ -92,8 +94,8 @@ function showAllEmojis() {
 			.append('div')
 			.attr('class', 'minicard current')
 			.style('transform', css)
-			.html(emojisClues[i]);
-		if (i > 0 && (i+1) % 8 == 0) {
+			.html(allEmojis[i]);
+		if (i > 0 && (i+1) % perRow == 0) {
 			gc.append('br');
 		}
 	}
