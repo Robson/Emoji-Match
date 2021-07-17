@@ -92,7 +92,7 @@ function showAllEmojis() {
 			.replace("[top]", random(-3, 3));		
 		gc
 			.append('div')
-			.attr('class', 'minicard current')
+			.attr('class', 'mini_card current')
 			.style('transform', css)
 			.html(allEmojis[i]);
 		if (i > 0 && (i+1) % perRow == 0) {
@@ -163,13 +163,13 @@ function clickedGuess(element) {
 				chosen.attr('class', 'card error');
 				d3.selectAll('.card')
 					.style('cursor', 'not-allowed');
-				d3.select('#help').html("Whoops! " + getRandomFailEmoji() + " Accidentally clicked the target emoji! Game over");
+				d3.select('#help').html("Whoops! Accidentally clicked the target emoji! Game over");
 				d3.select('#restart').style('display', 'block');
 			} else {
 				guessed++;
 				chosen.attr('class', 'card disabled');
 				if (guessed + 1 == emojisChosen.length) {
-					d3.select('#help').html("Congratulations! " + getRandomCelebrationEmoji() + " The target emoji has been found!");
+					d3.select('#help').html("Congratulations! The target emoji has been found!");
 					d3.select('#card' + answer).attr('class', 'card selected_answer');
 					d3.select('#restart').style('display', 'block');
 				} else {
@@ -194,6 +194,7 @@ function clickStartGame() {
 	d3.select('#start').style('display', 'none');
 	d3.select('#help').html("<em>Player 1</em>: click the emoji on the right that is most similar to your target emoji");
 	makeGuessEmojis();
+	selectRightSide();
 	state = 3;
 	doResize();
 }
@@ -210,7 +211,7 @@ function makeGuessEmojis() {
 			.replace("[top]", random(-1, 1));		
 		gc
 			.append('div')
-			.attr('class', 'minicard current')
+			.attr('class', 'mini_card current')
 			.style('transform', css)
 			.on('mousedown', function() { clickedClueEmoji(this) })
 			.append('span')
@@ -221,12 +222,12 @@ function makeGuessEmojis() {
 }
 
 function clickedClueEmoji(element) {
-	d3.select(element).attr('class', 'minicard selected');
+	d3.select(element).attr('class', 'mini_card selected');
 	d3.selectAll('.current')
 		.on('mousedown', null)
 		.style('cursor', 'not-allowed')
-		.attr('class', 'minicard');
-	d3.selectAll('.minicard')
+		.attr('class', 'mini_card');
+	d3.selectAll('.mini_card')
 		.on('mousedown', null);			
 	selectLeftSide();
 	state = 4;
@@ -333,18 +334,24 @@ function updateCategoryList() {
 	list.selectAll('*').remove();
 	var categoryValue = '';
 	for (var category of categories) {
-		var amount = getCategoryEmojisOnly(category).length;
-		if (amount >= requiredEmojis) {
-			if (!categoryValue) {
-				categoryValue = category;	
+		if (category == 'Flag' &&
+		    (navigator.userAgent.includes(' OPR/') ||
+			 navigator.userAgent.includes('Chrome'))) {
+			// skip - Opera doesn't render flag emojis
+		} else {
+			var amount = getCategoryEmojisOnly(category).length;
+			if (amount >= requiredEmojis) {
+				if (!categoryValue) {
+					categoryValue = category;	
+				}
+				if (oldCategory == category) {
+					categoryValue = category;
+				}
+				list
+					.append('option')
+					.attr('value', category)
+					.html(category);
 			}
-			if (oldCategory == category) {
-				categoryValue = category;
-			}
-			list
-				.append('option')
-				.attr('value', category)
-				.html(category);
 		}
 	}
 	d3.select('#category').property('value', categoryValue);
@@ -419,6 +426,7 @@ function createBackground() {
 					.style('top', y + 'px')					
 					.style('font-size', '32px')
 					.style('opacity', '0.25')
+					.attr('class', 'background_emoji')
 					.html(backgroundEmojis[random(0, backgroundEmojis.length)]);
 			}
 		}
@@ -449,3 +457,5 @@ function shuffle(items) {
 startGame();
 createBackground();
 showAbout(isFirst=true);
+
+console.log(navigator.userAgent);
