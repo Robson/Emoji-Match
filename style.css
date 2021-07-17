@@ -67,6 +67,17 @@ body {
 	transform-origin: top left;
 }
 
+/***** EMOJI *****/
+
+#i,
+#cog,
+#category_preview,
+.card,
+.mini_card,
+.background_emoji {
+	font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;
+}
+
 /***** COVER *****/
 
 #cover {
@@ -325,7 +336,7 @@ table, td, tr {
 	cursor: not-allowed;
 }
 
-.minicard {
+.mini_card {
 	margin: 4px 3px;
 	font-size: 45px;
 	width: 62px;
