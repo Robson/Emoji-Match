@@ -27,15 +27,39 @@ https://robson.plus/emoji-match/
 
 ## Compatibility
 
-(to-do)
+The output for this project is designed for desktop only. Mobile is not supported.
+
+| Platform | OS      | Browser          | Version | Status  |
+| :------- | :------ | :--------------- | :------ | :------ |
+| Desktop  | Windows | Firefox          | 89      | Working |
+| Desktop  | Windows | Opera            | 77      | Working |
+| Desktop  | Windows | Chrome           | 91      | Working |
+| Desktop  | Windows | Edge             | 91      | Working |
+
+The only difference between browsers is that some (Opera, Chrome, etc) do not render flag emojis, so the flag emojis are hidden for users of those browsers.
+
+Last tested on 17th July 2021.
 
 ## Testing
 
-(to-do)
+To run this on your computer:
+ * [Download the repository](https://github.com/Robson/Emoji-Match/archive/master.zip).
+ * Unzip anywhere.
+ * Open index.html in your browser.
 
 ## File Descriptions
 
-(to-do)
+### index.html + page.js
+
+These are responsible for creating and playing the game.
+
+### style.css
+
+All formatting and layout information is contained in this file.
+
+### emojis.js
+
+Thi contains the list of categories and then a massive list of emojis. Each emoji has a list of the categories that it belongs to. Each emoji also has a short description of what it is, although that is not used by the game.
 
 ## Technologies
 
