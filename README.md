@@ -59,7 +59,7 @@ All formatting and layout information is contained in this file.
 
 ### emojis.js
 
-Thi contains the list of categories and then a massive list of emojis. Each emoji has a list of the categories that it belongs to. Each emoji also has a short description of what it is, although that is not used by the game.
+This contains the list of categories and then a massive list of emojis. Each emoji has a list of the categories that it belongs to. Each emoji also has a short description of what it is, although that is not used by the game.
 
 ## Technologies
 
