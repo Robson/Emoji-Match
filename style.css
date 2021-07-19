@@ -28,7 +28,8 @@ body {
 	font-size: 28px;
 	height: 70px;
 	min-height: 70px;
-	border: 2px solid #000001;
+	border: 0 solid #000001;
+	border-width: 2px 50px;
 	background: #000;	
 	display: flex;
 }
@@ -65,6 +66,7 @@ body {
 	display: inline-block;
 	position: relative;
 	transform-origin: top left;
+	padding: 0;
 }
 
 /***** EMOJI *****/
@@ -88,20 +90,27 @@ body {
 	width: 100%;
 	height: 100%;
 	display: none;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	overflow: hidden;
 }
 
 /***** ABOUT *****/
 
 #i {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	padding: 5px 2px;
+	top: 14px;
+	right: 2px;
+	height: 70px;
+	padding: 0;
 	font-size: 30px;
 	text-align: left;
-	vertical-align: bottom;
+	vertical-align: top;
 	cursor: pointer;
-	opacity: 0.666;
+	opacity: 0.9;
+	z-index: 1000;
 }
 
 #i:hover {
@@ -110,10 +119,8 @@ body {
 
 #about {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -205px;
-	margin-left: -215px;
+	transform-origin: top left;
+	margin: auto;
 	height: auto;
 	width: 400px;
 	background: #fdb;
@@ -155,14 +162,14 @@ body {
 
 #cog {
 	position: absolute;
-	bottom: 0;
-	left: 38px;
-	padding: 5px 2px;
+	top: 14px;
+	left: 1px;
+	padding: 0;
 	font-size: 30px;
 	text-align: left;
-	vertical-align: bottom;
+	vertical-align: top;
 	cursor: pointer;
-	opacity: 0.666;
+	opacity: 0.9;
 }
 
 #cog:hover {
@@ -171,10 +178,8 @@ body {
 
 #options {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -205px;
-	margin-left: -205px;
+	transform-origin: top left;
+	margin: auto;
 	height: auto;
 	width: 400px;
 	background: #fdb;
@@ -239,10 +244,6 @@ table, td, tr {
 
 #card_container {
 	display: inline-block;
-}
-
-#clues_container {
-	padding: 0;
 }
 
 .guess_container {

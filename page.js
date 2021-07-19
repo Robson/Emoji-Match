@@ -247,10 +247,14 @@ function clickedClueEmoji(element) {
 
 /***** CONTAINER RESIZING *****/
 
-function resizeElementToFitContainer(outside, inside) {
+function resizeElementToFitContainer(outside, inside, header=true) {
 	
 	var documentHeight = d3.select('body').node().getBoundingClientRect().height;
-	var contentHeight = documentHeight - d3.select('#header').node().getBoundingClientRect().height;
+	var contentHeight = documentHeight;
+	if (header) {
+		contentHeight -= d3.select('#header').node().getBoundingClientRect().height;
+	}
+	
 	inside.style('transform', 'scale(1)');
 	
 	var outsideSize = outside.node().getBoundingClientRect();
@@ -271,10 +275,12 @@ function resizeElementToFitContainer(outside, inside) {
 
 function doResize() {	
 	resizeElementToFitContainer(d3.select("#answers"), d3.select("#answers_container"));
-	resizeElementToFitContainer(d3.select("#clues"), d3.select("#clues_container"));	
+	resizeElementToFitContainer(d3.select("#clues"), d3.select("#clues_container"));
+	resizeElementToFitContainer(d3.select("#cover"), d3.select("#about"), header=false);
+	resizeElementToFitContainer(d3.select("#cover"), d3.select("#options"), header=false);	
 	if (isOnFirstScreen) {
 		createBackground();
-	}	
+	}
 }
 
 doResize();
@@ -292,9 +298,10 @@ function showAbout(isFirst=false) {
 	d3.select('#container').style('filter', 'grayscale(100)');
 	d3.select('#cog').style('display', 'none');	
 	d3.select('#i').style('display', 'none');	
-	d3.select('#cover').style('display', 'block');
-	d3.select('#about').style('display', 'block');
+	d3.select('#cover').style('display', 'flex');
+	d3.select('#about').style('display', 'inline-block');
 	d3.select('#options').style('display', 'none');
+	doResize();
 }
 
 function hideAbout() {
@@ -322,9 +329,10 @@ function showOptions() {
 	d3.select('#container').style('filter', 'grayscale(100)');
 	d3.select('#cog').style('display', 'none');	
 	d3.select('#i').style('display', 'none');	
-	d3.select('#cover').style('display', 'block');
+	d3.select('#cover').style('display', 'flex');
 	d3.select('#options').style('display', 'block');
 	d3.select('#about').style('display', 'none');
+	doResize();
 }
 
 function updateCategoryList() {
