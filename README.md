@@ -2,7 +2,7 @@
 
 ## 📃 Table of Contents
 
- * [Demo](#-demo)
+ * [Demo](#%EF%B8%8F-demo)
  * [Explanation](#ℹ️-explanation)
  * [Live Version](#%EF%B8%8F-live-version)
  * [Compatibility](#%EF%B8%8F-compatibility)
