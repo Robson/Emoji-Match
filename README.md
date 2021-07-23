@@ -27,7 +27,7 @@ https://robson.plus/emoji-match/
 
 ## ☑️ Compatibility
 
-The output for this project is designed for desktop only. Mobile is not supported.
+The output for this project is designed for desktop only. Mobile is not supported yet.
 
 | Platform | OS      | Browser          | Version | Status  |
 | :------- | :------ | :--------------- | :------ | :------ |
