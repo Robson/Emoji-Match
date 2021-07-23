@@ -397,3 +397,15 @@ em {
 .cls {
 	clear: both;
 }
+
+/***** DEVICE DEPENDENT *****/
+
+#phoneHelp {
+	display: none;
+}
+
+@media screen and (max-width: 800px) and (orientation: portrait) {
+	#phoneHelp {
+		display: block;
+	}
+}
