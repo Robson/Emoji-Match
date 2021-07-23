@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
- * [Demo](#demo)
+ * [Demo](#-demo)
  * [Explanation](#explanation)
  * [Live Version](#live-version)
  * [Compatibility](#compatibility)
@@ -11,7 +11,7 @@
  * [Technologies](#technologies)
  * [Validation](#validation)
 
-## Demo
+## 📹 Demo
 
 (to-do)
  
