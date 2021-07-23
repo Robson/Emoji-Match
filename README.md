@@ -3,12 +3,12 @@
 ## 📃 Table of Contents
 
  * [Demo](#-demo)
- * [Explanation](#-explanation)
- * [Live Version](#-live-version)
- * [Compatibility](#-compatibility)
+ * [Explanation](#ℹ️-explanation)
+ * [Live Version](#🕹️-live-version)
+ * [Compatibility](#☑️-compatibility)
  * [Testing](#-testing) 
- * [File Descriptions](#-file-descriptions)
- * [Technologies](#-technologies)
+ * [File Descriptions](#🗄️-file-descriptions)
+ * [Technologies](#🖥️-technologies)
  * [Validation](#-validation)
 
 ## 📹 Demo
