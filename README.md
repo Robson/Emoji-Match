@@ -4,11 +4,11 @@
 
  * [Demo](#-demo)
  * [Explanation](#ℹ️-explanation)
- * [Live Version](#🕹️-live-version)
- * [Compatibility](#☑️-compatibility)
+ * [Live Version](#%EF%B8%8F-live-version)
+ * [Compatibility](#%EF%B8%8F-compatibility)
  * [Testing](#-testing) 
- * [File Descriptions](#🗄️-file-descriptions)
- * [Technologies](#🖥️-technologies)
+ * [File Descriptions](#%EF%B8%8F-file-descriptions)
+ * [Technologies](#%EF%B8%8F-technologies)
  * [Validation](#-validation)
 
 ## 📹 Demo
