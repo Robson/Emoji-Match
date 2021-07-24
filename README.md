@@ -13,7 +13,7 @@
 
 ## 🎞️ Demo
 
-(to-do)
+![Demo](https://raw.githubusercontent.com/Robson/Emoji-Match/main/Demo.gif)
  
 ## ℹ️ Explanation
 
