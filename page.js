@@ -247,7 +247,7 @@ function clickedClueEmoji(element) {
 
 /***** CONTAINER RESIZING *****/
 
-function resizeElementToFitContainer(outside, inside, header=true) {
+function resizeElementToFitContainer(outside, inside, header=true, margin=0) {
 	
 	var documentHeight = d3.select('body').node().getBoundingClientRect().height;
 	var contentHeight = documentHeight;
@@ -260,6 +260,10 @@ function resizeElementToFitContainer(outside, inside, header=true) {
 	var outsideSize = outside.node().getBoundingClientRect();
 	var insideSize = inside.node().getBoundingClientRect();
 		
+	outsideSize.width -= (margin * 2);
+	outsideSize.height -= (margin * 2);
+	contentHeight -= (margin * 2);
+	
 	var scale = Math.min(
 		1,
 		outsideSize.width / insideSize.width,
@@ -267,8 +271,8 @@ function resizeElementToFitContainer(outside, inside, header=true) {
 	);
 	
 	inside
-		.style('left', (outsideSize.width / 2) - ((insideSize.width / 2) * scale) + 'px')
-		.style('top', (outsideSize.height / 2) - ((insideSize.height / 2) * scale) + 'px')
+		.style('left', margin + ((outsideSize.width / 2) - ((insideSize.width / 2) * scale)) + 'px')
+		.style('top', margin + ((outsideSize.height / 2) - ((insideSize.height / 2) * scale)) + 'px')
 		.style('transform', 'scale('+scale+')');
 		
 }
@@ -276,8 +280,8 @@ function resizeElementToFitContainer(outside, inside, header=true) {
 function doResize() {	
 	resizeElementToFitContainer(d3.select("#answers"), d3.select("#answers_container"));
 	resizeElementToFitContainer(d3.select("#clues"), d3.select("#clues_container"));
-	resizeElementToFitContainer(d3.select("#cover"), d3.select("#about"), header=false);
-	resizeElementToFitContainer(d3.select("#cover"), d3.select("#options"), header=false);	
+	resizeElementToFitContainer(d3.select("#cover"), d3.select("#about"), header=false, margin=5);
+	resizeElementToFitContainer(d3.select("#cover"), d3.select("#options"), header=false, margin=5);	
 	if (isOnFirstScreen) {
 		createBackground();
 	}
@@ -465,5 +469,6 @@ function shuffle(items) {
 startGame();
 createBackground();
 showAbout(isFirst=true);
+//setTimeout(function(){ doResize(); }, 250);
 
 console.log(navigator.userAgent);
