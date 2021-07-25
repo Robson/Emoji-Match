@@ -28,15 +28,13 @@ body {
 	font-size: 28px;
 	height: 70px;
 	min-height: 70px;
-	border: 0 solid #000001;
+	border: 0 solid transparent;
 	border-width: 2px 50px;
-	background: #000;	
-	display: flex;
+	display: hidden;
 }
 
 #help {
-	margin: auto;
-	
+	margin: auto;	
 }
 
 #content {
@@ -89,7 +87,9 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	display: none;
+	display: block;
+	z-index: 10000;
+	background: #fff;
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
@@ -238,6 +238,7 @@ table, td, tr {
 	color: #fff;
 	padding: 0 2px;
 	margin: auto;
+	text-overflow: ellipsis;
 }
 
 /***** CONTENTS *****/
@@ -298,6 +299,10 @@ table, td, tr {
 
 #restart {
 	clear: both;
+}
+
+#different_targets {
+	display: hidden;
 }
 
 /***** CARDS *****/
@@ -407,5 +412,11 @@ em {
 @media screen and (max-width: 800px) and (orientation: portrait) {
 	#phoneHelp {
 		display: block;
+	}
+}
+
+@media (max-height: 500px) {
+	#header {
+		font-size: 24px;
 	}
 }

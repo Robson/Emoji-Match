@@ -309,11 +309,14 @@ function showAbout(isFirst=false) {
 }
 
 function hideAbout() {
+	d3.select('#header').style('display', 'flex');
+	d3.select('#header').style('background', '#000');
 	d3.select('#container').style('opacity', 1);
 	d3.select('#container').style('filter', 'none');
 	d3.select('#cog').style('display', 'block');
 	d3.select('#i').style('display', 'block');	
 	d3.select('#cover').style('display', 'none');
+	d3.select('#cover').style('background', 'transparent');
 	d3.select('#options').style('display', 'none');
 	d3.selectAll('#background *').remove();
 	d3.select('#cancelAbout').html('Continue Playing');
