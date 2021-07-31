@@ -27,7 +27,7 @@ https://robson.plus/emoji-match/
 
 ## ☑️ Compatibility
 
-The output for this project is designed for desktop only. Mobile is not supported yet.
+The output for this project is designed for desktop and mobile.
 
 | Platform | OS      | Browser          | Version | Status  |
 | :------- | :------ | :--------------- | :------ | :------ |
@@ -35,6 +35,7 @@ The output for this project is designed for desktop only. Mobile is not supporte
 | Desktop  | Windows | Opera            | 77      | Working |
 | Desktop  | Windows | Chrome           | 91      | Working |
 | Desktop  | Windows | Edge             | 91      | Working |
+| Mobile   | Android | Chrome           | 92      | Working |
 
 The only difference between browsers is that some (Opera, Chrome, etc) do not render flag emojis, so the flag emojis are hidden for users of those browsers.
 
