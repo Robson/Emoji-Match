@@ -30,7 +30,7 @@ body {
 	min-height: 70px;
 	border: 0 solid transparent;
 	border-width: 2px 50px;
-	display: hidden;
+	display: none;
 }
 
 #content {
@@ -298,7 +298,7 @@ table, td, tr {
 }
 
 #different_targets {
-	display: hidden;
+	display: none;
 }
 
 /***** CARDS *****/
