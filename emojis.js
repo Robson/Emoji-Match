@@ -919,6 +919,9 @@ var emojis = [
 [ '💼', [ 'Object', 'Clothes' ], "Briefcase" ],
 ]
 
+function isUsed(a) {
+	return a;
+}
+
 // indicate that these are used
-categories[0] = categories[0]
-emojis[0] = emojis[0]
+isUsed(categories, emojis)
