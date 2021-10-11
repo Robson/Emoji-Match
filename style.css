@@ -33,10 +33,6 @@ body {
 	display: hidden;
 }
 
-#help {
-	margin: auto;	
-}
-
 #content {
 	display: flex;
 	flex-grow: 2;
@@ -140,7 +136,7 @@ body {
 }
 
 #about p {
-	margin: 10px 0 0 0;
+	margin: 10px 0 0;
 	padding: 0;
 	font-size: 20px;
 }
@@ -200,7 +196,7 @@ body {
 
 #options h1 {
 	font-size: 32px;
-	margin: 15px 0 0 0;
+	margin: 15px 0 0;
 	padding: 0;
 }
 
@@ -248,7 +244,7 @@ table, td, tr {
 }
 
 .guess_container {
-	margin: 6px 0 6px 0;
+	margin: 6px 0;
 	padding: 3px;
 	white-space: pre;
 }
