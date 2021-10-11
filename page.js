@@ -128,14 +128,6 @@ function createPotentialGuessCards() {
 	doResize();
 }
 
-function getRandomCelebrationEmoji() {
-	return shuffle([ '🏆', '🏅', '🏵️', '✨', '✔️', '🌟', '🤩', '⭐' ])[0];	
-}
-
-function getRandomFailEmoji() {
-	return shuffle([ '💥', '❌', '😢', '😭', '😿', '💔', '🤦' ])[0];	
-}
-
 function clickedGuess(element) {
 	var chosen = d3.select(element);
 	var cardIndex = +chosen.attr('id').replace('card', '');	
@@ -411,7 +403,6 @@ function createBackground() {
 	var bg = d3.select('#background');
 	var backgroundEmojis = getAllEmojisExceptFlags();
 	var size = d3.select('body').node().getBoundingClientRect();
-	var pattern = random(0, 4);
 	var count = 0, offset = 0, addition = 0, append = 0;
 	switch (random(0, 2)) {
 		case 0: // every second square
@@ -469,9 +460,16 @@ function shuffle(items) {
   return items;
 }
 
+function isUsed(a) {
+	return a;
+}
+
+isUsed(optionsApply, optionsCancel, showOptions, hideAbout, clickCommitTargetEmoji, showAllEmojis, newTargetEmojiSet)
+
 startGame();
 createBackground();
 showAbout(isFirst=true);
 //setTimeout(function(){ doResize(); }, 250);
 
 console.log(navigator.userAgent);
+
