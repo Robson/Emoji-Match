@@ -277,7 +277,7 @@ table, td, tr {
 }
 
 .mini_button {
-	margin-top: 10px;
+	margin: 8px 0 2px 0;
 	display: inline-block;
 	border-radius: 5px;
 	background: #000;
@@ -287,6 +287,10 @@ table, td, tr {
 	box-shadow: 5px 5px 0 0 rgb(128, 128, 128);
 	cursor: pointer;
 	z-index: -10000;
+}
+
+.mini_button:active {
+	margin: 10px 0 0;
 }
 
 .mini_button:hover {
