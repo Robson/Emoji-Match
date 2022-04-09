@@ -277,7 +277,7 @@ table, td, tr {
 }
 
 .mini_button {
-	margin: 8px 0 2px 0;
+	margin: 8px 0 2px;
 	display: inline-block;
 	border-radius: 5px;
 	background: #000;
