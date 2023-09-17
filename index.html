@@ -8,13 +8,13 @@
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'G-2E561F2422');
-		</script>	
+		</script>
 		<!--
 		************************************************
 		The script above is for google analytics.
 		You'll want to remove that if you use this page.
 		************************************************
-		-->	
+		-->
 		<title>Emoji Match</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,9 +22,9 @@
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="emojis.js"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"> 		
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap"> 	
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<div id="container">
@@ -56,19 +56,19 @@
 						<div id="next" class="button" style="display: none" onmousedown="clickCommitTargetEmoji()">Next</div>
 						<div id="start" class="button" style="display: none" onmousedown="clickStartGame()">Start</div>
 					</div>
-				</div>			
+				</div>
 			</div>
-		</div>		
+		</div>
 		<div id="cover">
 			<div id="background">
 			</div>
-			<div id="about">				
+			<div id="about">
 				<h1>Emoji Match</h1>
-				<p>This is a game for 2+&nbsp;players,<br/>where one person secretly chooses an emoji, then everyone else works together to figure out what it is.</p>
+				<p>This is a game for 2+&nbsp;players,<br>where one person secretly chooses an emoji, then everyone else works together to figure out what it is.</p>
 				<p id="phoneHelp">If you are playing on a phone/tablet, it is recommended to use landscape mode.</p>
 				<p id="startAbout">Start by choosing one person to be <em>Player&nbsp;1</em>. Everyone else is a <em>Guesser</em>.</p>
 				<div id="cancelAbout" class="mini_button" onmousedown="hideAbout()">Let's Play!</div>
-				<p id="extraAbout">Created by <a target="_blank" href="https://robson.plus">Robson</a>. View the <a target="_blank" href="https://github.com/Robson/Emoji-Match">code</a>.</p>	
+				<p id="extraAbout">Created by <a target="_blank" href="https://robson.plus">Robson</a>. View the <a target="_blank" href="https://github.com/Robson/Emoji-Match">code</a>.</p>
 			</div>
 			<div id="options">
 				<h1>Options</h1>
@@ -77,7 +77,7 @@
 						<td colspan="2">
 							<p>
 								Target Emojis
-								<br/>
+								<br>
 								<select id="target_emoji_count" onchange="updateCategoryList()">
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -85,14 +85,14 @@
 									<option value="5">5</option>
 									<option value="6">6</option>
 									<option value="7">7</option>
-									<option value="8">8</option>									
+									<option value="8">8</option>
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
-							</p>	
+							</p>
 							<p>
 								Clue Emojis
-								<br/>
+								<br>
 								<select id="clue_emoji_count" onchange="updateCategoryList()">
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -104,13 +104,13 @@
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
-							</p>							
+							</p>
 							<div>
 								Emoji Category
-								<br/>
+								<br>
 								<select id="category" onchange="showCategoryPreview()">
 								</select>
-								<br/>
+								<br>
 								<div id="category_preview"></div>
 							</div>
 						</td>
@@ -122,7 +122,7 @@
 						<td class="right">
 							<div id="apply" class="mini_button" onmousedown="optionsApply()">Apply & Restart</div>
 						</td>
-					</tr>					
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -131,7 +131,7 @@
 		</div>
 		<div id="cog" onmousedown="showOptions()" title="Options">
 			⚙️
-		</div>		
-		<script src="page.js"></script>	
+		</div>
+		<script src="page.js"></script>
 	</body>
 </html>
